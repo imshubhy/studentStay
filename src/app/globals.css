@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* StudentStay Light Mode Theme - Derived for contrast */
+    --background: 0 0% 98%; /* Near White */
+    --foreground: 240 20% 15%; /* Rich Dark from dark theme */
+
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 240 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 20% 15%;
+
+    /* Primary: Slate Blue */
+    --primary: 250 57% 61%; /* #6A5ACD */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    /* Secondary: Light Gray (for muted elements) */
+    --secondary: 210 17% 90%; 
+    --secondary-foreground: 240 10% 30%; 
+
+    --muted: 210 15% 96%; /* Very Light Gray #F3F4F6 */
+    --muted-foreground: 210 10% 45%; /* #ADB5BD or similar gray */
+
+    /* Accent: Orange */
+    --accent: 33 100% 50%; /* #FF8C00 */
+    --accent-foreground: 0 0% 100%; /* White text on accent */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 210 10% 85%; 
+    --input: 210 10% 92%; 
+    --ring: 33 100% 55%; /* Lighter Orange for focus ring */
+
+    --chart-1: 250 57% 70%; 
+    --chart-2: 33 100% 60%; 
+    --chart-3: 210 15% 80%;
+    --chart-4: 250 50% 50%;
+    --chart-5: 33 90% 40%;
+
+    --sidebar-background: 0 0% 97%; /* Default light sidebar */
+    --sidebar-foreground: 240 20% 15%;
+    --sidebar-primary: hsl(var(--primary));
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: hsl(var(--primary) / 0.1); /* Transparent primary */
+    --sidebar-accent-foreground: hsl(var(--primary));
+    --sidebar-border: hsl(var(--border));
+    --sidebar-ring: hsl(var(--ring));
+
+    /* Gradient for body background - Light Mode */
+    --gradient-start-color-light: 250 60% 95%; /* Lighter Slate Blue */
+    --gradient-end-color-light: 33 100% 95%;   /* Lighter Orange */
+  }
+
+  .dark {
+    /* StudentStay Dark Mode Theme */
+    --background: 240 20% 10%; /* #1A1A26 - Slightly darker than previous for more depth */
+    --foreground: 210 17% 98%; /* #F8F9FA - Light Primary Text */
+
+    --card: 240 12% 16%; /* #222230 - Darker cards */
+    --card-foreground: 210 17% 95%; /* Slightly off-white */
+
+    --popover: 240 12% 14%; /* Slightly darker than card */
+    --popover-foreground: 210 17% 98%;
+
+    /* Primary: Slate Blue */
+    --primary: 250 57% 61%; /* #6A5ACD */
+    --primary-foreground: 250 60% 95%; /* Very light text on primary */
+
+    /* Secondary: Darker Muted Color */
+    --secondary: 208 13% 22%; /* #31363B */
+    --secondary-foreground: 208 13% 75%; /* Lighter gray for text on secondary */
+
+    --muted: 240 10% 19%; /* #282833 */
+    --muted-foreground: 208 13% 65%; /* #A0A7AF - Muted Secondary Text */
+
+    /* Accent: Orange */
+    --accent: 33 100% 50%; /* #FF8C00 */
+    --accent-foreground: 33 100% 10%; /* Dark text on accent */
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 10% 25%; /* #363648 - For subtle borders */
+    --input: 240 10% 15%;  /* #20202B - Slightly darker than card for inputs */
+    --ring: 33 100% 55%;   /* Accent orange, slightly lighter for ring */
+
+    --chart-1: 250 57% 70%;
+    --chart-2: 33 100% 60%;
+    --chart-3: 210 15% 60%;
+    --chart-4: 250 50% 55%;
+    --chart-5: 33 90% 45%;
+
+    --sidebar-background: 240 20% 12%; /* #1C1C29 - Slightly distinct from main bg */
+    --sidebar-foreground: hsl(var(--foreground));
+    --sidebar-primary: hsl(var(--primary));
+    --sidebar-primary-foreground: hsl(var(--primary-foreground));
+    --sidebar-accent: hsl(var(--primary) / 0.15); /* Transparent slate blue for hover */
+    --sidebar-accent-foreground: hsl(var(--primary) / 0.85); /* Lighter slate blue for text */
+    --sidebar-border: hsl(var(--border) / 0.8);
+    --sidebar-ring: hsl(var(--ring));
+
+    /* Gradient for body background - Dark Mode */
+    --gradient-start-color-dark: 260 30% 12%; /* Deep Purple variant #1E1E36 style */
+    --gradient-end-color-dark: 240 25% 8%;  /* Rich Navy variant #10101F style */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Default to dark mode gradient for this app */
+    @apply bg-gradient-to-br from-[hsl(var(--gradient-start-color-dark))] to-[hsl(var(--gradient-end-color-dark))];
+  }
+  .dark body { /* This ensures dark mode is applied if system is not dark by default but 'dark' class is active */
+    @apply bg-gradient-to-br from-[hsl(var(--gradient-start-color-dark))] to-[hsl(var(--gradient-end-color-dark))];
+  }
+  html.light body { /* Explicitly for light mode if set */
+     @apply bg-gradient-to-br from-[hsl(var(--gradient-start-color-light))] to-[hsl(var(--gradient-end-color-light))];
+  }
+}
+
+/* Add subtle border and hover effect to cards globally */
+@layer components {
+  .card {
+    @apply transition-all duration-300 border border-transparent hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10;
+  }
+  /* Style for semi-transparent badges based on new theme */
+   .badge-primary-transparent {
+      @apply bg-primary/15 text-primary border-primary/25;
+   }
+   .badge-accent-transparent {
+     @apply bg-accent/15 text-accent border-accent/25;
+   }
+
+   /* Glow effect utility - Simplified, using theme colors */
+    .glow-primary {
+      box-shadow: 0 0 15px 2px hsl(var(--primary) / 0.35), 0 0 25px 5px hsl(var(--primary) / 0.2);
+    }
+    .glow-accent {
+      box-shadow: 0 0 15px 2px hsl(var(--accent) / 0.45), 0 0 25px 5px hsl(var(--accent) / 0.25);
+    }
+     .focus-glow-accent:focus-within {
+        @apply ring-2 ring-accent/60;
+        box-shadow: 0 0 18px 3px hsl(var(--accent) / 0.35), 0 0 30px 6px hsl(var(--accent) / 0.20);
+    }
+    .focus-glow-primary:focus-within {
+        @apply ring-2 ring-primary/60;
+        box-shadow: 0 0 18px 3px hsl(var(--primary) / 0.25), 0 0 30px 6px hsl(var(--primary) / 0.15);
+    }
+
+    /* Section Header Styling */
+    .section-header {
+      @apply text-3xl sm:text-4xl font-bold mb-3 tracking-tight;
+      @apply bg-gradient-to-r from-primary via-accent to-accent text-transparent bg-clip-text;
+    }
+    .section-header-icon {
+      @apply h-8 w-8 text-primary;
+    }
+    .section-subheader {
+      @apply text-lg text-muted-foreground max-w-3xl;
+    }
+
+    /* Filter Chip Styling */
+    .filter-chip {
+      @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border transition-all;
+      @apply bg-secondary/30 border-secondary text-secondary-foreground;
+      @apply hover:bg-secondary/50 hover:border-secondary/80;
+    }
+    .filter-chip-ai {
+       @apply bg-primary/15 border-primary/30 text-primary;
+       @apply hover:bg-primary/25 hover:border-primary/50;
+    }
+
+    /* Input focus glow for AI Search */
+    .input-ai-focus:focus-within {
+        @apply ring-2 ring-offset-0 ring-accent/70;
+        box-shadow: 0 0 12px 1px hsl(var(--accent) / 0.3), 0 0 20px 4px hsl(var(--accent) / 0.15);
+    }
+}
+
+/* Custom scrollbar styling for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background) / 0.5);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted)); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--secondary)); 
+}
